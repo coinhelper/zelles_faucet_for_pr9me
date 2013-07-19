@@ -28,7 +28,7 @@ if(isset($_POST['addr'])) {
    $result = mysql_query("SELECT * FROM zellesfaucet WHERE datec='$datec'");
    $num_rows = mysql_num_rows($result);
    if($num_rows>$max_request_per_day) {
-      $onloader = 'It seams someone is trying to abuse us. Try again a later today.';
+      $onloader = ' onload="alert(\'It seams someone is trying to abuse us. Try again a later today.\')"';
    } else {
       if($User_Address!="") {
          $result = mysql_query("SELECT * FROM zellesfaucet WHERE date='$date' and address='$User_Address'");
@@ -47,21 +47,21 @@ if(isset($_POST['addr'])) {
                   if($getbalance>=$amount) {
                      $txid = $coind->sendfrom('faucetaccount',$User_Address,$amount);
                      $sql = mysql_query("INSERT INTO zellesfaucet (id,date,datec,ip,email,address,txid,amount,paid) VALUES ('','$date','$datec','$ip','$udb_email','$User_Address','$txid','$send_amount','1')");
-                     $onloader = 'Success, Megacoins sent. '.$txid;
+                     $onloader = ' onload="alert(\'Success, Megacoins sent. '.$txid.'\')"';
                   } else {
-                     $onloader = 'The faucet has insufficient funds.';
+                     $onloader = ' onload="alert(\'The faucet has insufficient funds.\')"';
                   }
                } else {
-                  $onloader = 'You already requested coins today. Try again tomorrow.';
+                  $onloader = ' onload="alert(\'You already requested coins today. Try again tomorrow.\')"';
                }
             } else {
-               $onloader = 'You already requested coins today. Try again tomorrow.';
+               $onloader = ' onload="alert(\'You already requested coins today. Try again tomorrow.\')"';
             }
          } else {
-            $onloader = 'You already requested coins today. Try again tomorrow.';
+            $onloader = ' onload="alert(\'You already requested coins today. Try again tomorrow.\')"';
          }
       } else {
-         $onloader = 'You did not enter an address. Try again!';
+         $onloader = ' onload="alert(\'You did not enter an address. Try again!\')"';
       }
    }
 }
